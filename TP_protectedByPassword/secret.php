@@ -1,7 +1,7 @@
 <?php
 
 /**
-Vérifcation du mot de passe
+*Vérifcation du mot de passe
 */
 if (isset($_POST['mdp'])) {
 
