@@ -1,19 +1,19 @@
 <?php 
 
-echo "test de connexion à une BDD mysql avec PDO\n";
 try {
 
-$db = new PDO('mysql:host=localhost;dbname=MAHDI_TEST;charst=utf8', 'root', 'test'); 
+$db = new PDO('mysql:host=localhost;dbname=mahdi_tp1;charst=utf8', 'root', 'ma1985gu'); 
 
 }catch(Exception $e) {
 
 	die($e->getMessage());
 }
 
-$query = $db->query('SELECT * FROM Personnage');
 
-while($donnees = $query->fetch()) {
+$query = $db->prepare('INSERT INTO comments (login, comment) VALUES(:login, :comment)');
 
-echo $donnees['sexe'].' '.$donnees['date_naissance'].' '.$donnees['nom']."\n";
-}
+$query->execute(array(
+		'login'   => $_POST['login'],
+		'comment' => $_POST['comment']));
+
 
