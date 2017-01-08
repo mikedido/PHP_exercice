@@ -10,6 +10,10 @@
 	/**
 	*
 	*/
+	
+	//lien pour retour à la liste des billets
+	echo "<a href=\"index.php\">Retour à la liste des billets</a>";
+
 	try{
 		$bdd= new PDO('mysql:host=localhost;dbname=mahdi_tp1;charset=utf8', 'root', 'ma1985gu');
 	}catch(EXCEPTION $e){
@@ -20,7 +24,7 @@
 	/**
 	*Affichage du billet
 	*/
-	$query = $bdd->prepare('SELECT titre, contenu, date_creation FROM billets WHERE id = :id');
+	$query = $bdd->prepare('SELECT titre, contenu, date_format(date_creation, \'%e-%c-%Y %H:%i:%s\') AS date_creation FROM billets WHERE id = :id');
 	$query->execute(array(
 		'id' => $_GET['billet']));
 	$data = $query->fetch();	
@@ -55,6 +59,7 @@
 		<p><?php echo $datas['commentaire'];?></p>
 	<?php
 	}
+
 	?>
 	</body>
 </html>

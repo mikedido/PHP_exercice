@@ -13,6 +13,11 @@
 * Liste de tous les billest
 *
 */
+
+//var_dump(isset($_POST['title']));
+//var_dump(isset($_POST['comment'])); die;
+
+
 try{
     $bdd = new PDO('mysql:host=localhost;dbname=mahdi_tp1;charset=utf8', 'root', 'ma1985gu');
 }catch(EXCEPTION $e) {
@@ -20,8 +25,18 @@ try{
     die ('erreur'. $e->getMessage());
 }
 
+//Ajout de commentaires
+if(isset($_POST['title']) AND isset($_POST['comment'])) {
+	$insert = $bdd->prepare('INSERT INTO billets (titre, contenu, date_creation) VALUES(:titre, :contenu, NOW())');
+	$insert->execute(array(
+		"titre"	  => $_POST['title'],
+		"contenu" => $_POST['comment']));
+	
+	//$isnert->closeCursor();
+}
 
-$query = $bdd->query('SELECT id, titre, contenu, date_creation FROM billets ORDER BY date_creation LIMIT 10');
+
+$query = $bdd->query('SELECT id, titre, contenu, date_creation FROM billets ORDER BY date_creation DESC LIMIT 5');
 
 while($datas = $query->fetch()) {
 ?>
@@ -38,6 +53,8 @@ while($datas = $query->fetch()) {
  
 <?php
 }
+//Ajouter un commentaires
+echo "<a href='commentaires_post.php'>Ajouter un commentaire</a>";
 ?>
 	</body>
 </html>
