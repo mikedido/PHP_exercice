@@ -28,6 +28,9 @@
 	$query->execute(array(
 		'id' => $_GET['billet']));
 	$data = $query->fetch();	
+		
+	if(!empty($data)) {
+
 	?>
 	<div>
 		<h2>
@@ -58,6 +61,11 @@
 		</div>
 		<p><?php echo $datas['commentaire'];?></p>
 	<?php
+	}
+
+	} else {
+
+		echo '<p>Pas de commentaire</p>';
 	}
 
 	?>
