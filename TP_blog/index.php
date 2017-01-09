@@ -14,8 +14,6 @@
 *
 */
 
-//var_dump(isset($_POST['title']));
-//var_dump(isset($_POST['comment'])); die;
 
 
 try{
@@ -27,16 +25,27 @@ try{
 
 //Ajout de commentaires
 if(isset($_POST['title']) AND isset($_POST['comment'])) {
-	$insert = $bdd->prepare('INSERT INTO billets (titre, contenu, date_creation) VALUES(:titre, :contenu, NOW())');
-	$insert->execute(array(
-		"titre"	  => $_POST['title'],
-		"contenu" => $_POST['comment']));
-	
-	//$isnert->closeCursor();
+	if (!empty($_POST['title']) AND !empty($_POST['comment'])) {
+		$insert = $bdd->prepare('INSERT INTO billets (titre, contenu, date_creation) VALUES(:titre, :contenu, NOW())');
+		$insert->execute(array(
+			"titre"	  => $_POST['title'],
+			"contenu" => $_POST['comment']));
+	}
+}
+
+//Get the page number
+if (!isset($_GET['page'])) {
+	$_GET['page']= 1;	
 }
 
 
-$query = $bdd->query('SELECT id, titre, contenu, date_creation FROM billets ORDER BY date_creation DESC LIMIT 5');
+$offset = ($_GET['page']-1)*5;
+
+
+$query = $bdd->query("SELECT id, titre, contenu, date_creation FROM billets ORDER BY date_creation LIMIT 5 OFFSET $offset");
+
+//$query->execute(array(
+//	"offset" => $offset));
 
 while($datas = $query->fetch()) {
 ?>
@@ -53,6 +62,22 @@ while($datas = $query->fetch()) {
  
 <?php
 }
+
+//Pagination
+
+$pages = $bdd->query('SELECT COUNT(*) AS nb_billets FROM billets');
+
+$result = $pages->fetch();
+
+$nb_pages = (int)($result['nb_billets']/5) + ($result['nb_billets']%5>0 ? 1 : 0);
+
+echo 'pages : ';
+for ($i=1; $i<=$nb_pages; $i++) {
+	echo "<a href=\"index.php?page=$i\">$i</a> ";
+
+}
+
+echo '<br />';
 //Ajouter un commentaires
 echo "<a href='commentaires_post.php'>Ajouter un commentaire</a>";
 ?>
