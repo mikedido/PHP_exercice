@@ -15,3 +15,6 @@ CREATE TABLE `membres` (
   `inscription` datetime NOT NULL,
   PRIMARY KEY(`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+
+-- insertion du compte test
+INSERT INTO `membres` (login, mdp, email, inscription) VALUES('test', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'test@test.com', now());

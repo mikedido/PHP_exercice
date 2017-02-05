@@ -1,23 +1,46 @@
 <?php
+session_start();
 
 $erros ='';
+
+if($_SESSION['connect']) {
+  header('location:sender.php');
+}
+
 
 if(isset($_POST['valider'])) {
   if (empty($_POST['login']) OR empty($_POST['password'])) {
       //echo 'login ou mot de passe vide';
-      $errors ='mot de passe ou login vide';
+      $errors ='login ou mot de passe vide';
   } else {
     //vérification de la connexion
     //connexion à la base de données
-    $bdd = new PDO();
+    $user_db=root;
+    $mdp_db=ma1985gu;
+    try {
+        $bdd = new PDO('mysql:host=localhost;dbname=mahdi_tp1;charst=utf8', $user_db, $mdp_db);
+    } catch(Exception $e) {
+        die($e->getMessage());
+    }
 
-    $bdd->query('SELECT id, login FROM membres WHERE login =:login AND mdp=:mdp');
-    $bdd->prepare(array(
-      "login" => $_POST['login'],
-      "mdp" => $_POST['mdp']
+    $query = $bdd->prepare('SELECT id, login FROM membres WHERE login =:login AND mdp=:mdp');
+    $query->execute(array(
+        'login' => $_POST['login'],
+        'mdp' => sha1($_POST['password'])
     ));
-    $result=$bdd->fetch();
-    var_dump($result); die;
+
+    $result= $query->fetch();
+
+    if(empty($result)) {
+      $errors = 'login ou mot de passe invalide';
+    } else {
+      session_start();
+      $_SESSION['id'] = $result['id'];
+      $_SESSION['login'] = $result['login'];
+      $_SESSION['connect']= true;
+      //redirection vers la page senders
+      header('location:sender.php');
+    }
   }
 }
 ?>
@@ -27,7 +50,7 @@ if(isset($_POST['valider'])) {
 </head>
   <link href="CSS/style.css" rel="stylesheet">
   <link href="bootstrap/css/bootsrtap.min.css" rel="stylesheet">
-  <title>connexion</title>
+  <title>Connexion</title>
 </head>
 <body>
   <div class="container">
