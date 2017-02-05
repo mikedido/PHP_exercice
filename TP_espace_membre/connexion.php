@@ -50,12 +50,12 @@ if(isset($_POST['valider'])) {
             <p>
               <input type="password" name="password" placeholder="Mot de passe"/>
             </p>
-            <p>
-              <input type="submit" name="valider"/>
-            </p>
             <?php
               echo '<p style="color:red;">'.$errors.'</p>';
             ?>
+            <p>
+              <input type="submit" name="valider"/>
+            </p>
           </form>
           <!--link pour la page d'inscription-->
           <p>Mot de passe oublié?
