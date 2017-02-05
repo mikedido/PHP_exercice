@@ -1,0 +1,57 @@
+html,body,.container
+{
+    height:100%;
+}
+.container
+{
+    display:table;
+    width: 100%;
+    margin-top: -50px;
+    padding: 50px 0 0 0; /*set left/right padding according to needs*/
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.row
+{
+    height: 100%;
+    display: table-row;
+}
+@media (min-width: 992px) {
+  .row .no-float {
+      display: table-cell;
+      float: none;
+  }
+}
+.col-md-4 {
+    background-color: #27c1fa;
+    width:30%;
+}
+.col-md-8 {
+    /*background: yellow;*/
+    padding-top:20px;
+}
+
+.bloc-center {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.bloc-right {
+  margin-left:auto;
+  margin-right:10px;
+  width:40%;
+}
+
+.bouton-inscription {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #27c1fa;
+  padding: 10px 10px 10px 10px;
+  text-decoration: none;
+}
+
+.bouton-inscription:hover {
+  background-color: #27c1fa;
+  text: white;
+}
