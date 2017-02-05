@@ -6,12 +6,12 @@ CREATE TABLE `commentss` IF NOT EXISTS (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS;
+DROP TABLE IF EXISTS `membres`;
 CREATE TABLE `membres` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `login`
-  `mdp`
-  `email`
-  `inscription`
+  `login` varchar(255) NOT NULL,
+  `mdp` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `inscription` datetime NOT NULL,
   PRIMARY KEY(`id`)
-)ENGINE=InnoDB AUTO_INCREMENT DEFAULT CHARSET=latin1;
+)ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
