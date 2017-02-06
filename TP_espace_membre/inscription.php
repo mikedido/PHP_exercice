@@ -64,17 +64,31 @@ if (isset($_POST['envoyer'])) {
 <!DOCTYPE HTML>
 <html>
 <header>
+  <link href="CSS/style.css" rel="stylesheet">
   <title>Inscription</title>
 </header>
 <body>
-  <p>formulaire d'inscription</p>
-<form action='inscription.php' method="post">
-  <p><input type="text" name="login1" placeholder="Login"></p>
-  <p><input type="password" name="mdp1" placeholder="mot de passe"></p>
-  <p><input type="password" name="mdp2" placeholder="mot de passe"></p>
-  <p><input type="text" name="email" placeholder="email"></p>
-  <?php echo '<p style="color:red;">'.$errors.'</p>';?>
-  <p><input type="submit" name="envoyer" value="Inscription"></p>
-</form>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 no-float">
+        <p></p>
+      </div>
+
+  <div class="col-md-8 no-float">
+  <!--formulaire d'inscription-->
+  <div class="bloc-center">
+    <h2>formulaire d'inscription</h2>
+    <form action='inscription.php' method="post">
+      <p><input type="text" name="login1" placeholder="Login"></p>
+      <p><input type="password" name="mdp1" placeholder="mot de passe"></p>
+      <p><input type="password" name="mdp2" placeholder="mot de passe"></p>
+      <p><input type="text" name="email" placeholder="email"></p>
+      <?php echo '<p style="color:red;">'.$errors.'</p>';?>
+      <p><input type="submit" name="envoyer" value="Inscription"></p>
+    </form>
+  </div>
+</div>
+</div>
+</div>
 </body>
 </html>
