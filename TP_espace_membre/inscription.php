@@ -12,6 +12,12 @@ if (isset($_POST['envoyer'])) {
     $errors = 'Champ mot de passe 2 vide';
   }elseif(empty($_POST['email'])) {
     $errors = 'Champ email vide';
+  }else{
+    //vérification du format email
+    preg_match('#^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-Z._-]{2,4}$#', $_POST['email'], $matches);
+    if(empty($matches)) {
+      $errors = "format du mail invalide";
+    }
   }
   //si les mdp et mdp2 ne sont pas identiques
   if ($_POST['mdp1']!==$_POST['mdp2']) {
