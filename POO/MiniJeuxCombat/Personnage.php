@@ -6,11 +6,14 @@ class Personnage
   private $_nom;
   private $_degats;
 
+  const PERSONNAGE_MOI=1;
+  const PERSONNAGE_TUE=2;
+  const PERSONNAGE_FRAPPE=3;
+
   public function __construct(array $donnees)
   {
       $this->hydrate($donnees);
   }
-
 
   public function hydrate(array $donnees)
   {
@@ -22,15 +25,32 @@ class Personnage
       }
   }
 
-  public function faireDegats(Personnage $pers)
+  public function frapper(Personnage $pers)
   {
+      if ($pers->getId() == $this->getId()) {
+          return self::PERSONNAGE_MOI;
+      }
 
+      return $pers->recevoirDegats();
+  }
+
+  public function recevoirDegats()
+  {
+      $this->_degats+=5;
+
+      if ($this->_degats >=100) {
+          return self::PERSONNAGE_TUE;
+      }
+
+      return self::PERSONNAGE_FRAPPE;
   }
 
   //setters
   public function setId($id)
   {
-    if (is_int($id)) {
+    $id = (int)$id;
+
+    if ($id > 0) {
       $this->_id = $id;
     }
   }
@@ -42,10 +62,12 @@ class Personnage
     }
   }
 
-  public function setDegats($degat)
+  public function setDegats($degats)
   {
-    if (is_int($degat) AND $degat > 0) {
-      $this->_degats = $degats;
+    $degats = (int)$degats;
+
+    if ($degats <= 100 AND $degats >= 0) {
+        $this->_degats = $degats;
     }
   }
 
